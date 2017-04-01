@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Concept Design Form Validation</title>
+    <style media="screen">
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 700px;
+            display: flex;
+            color: white;
+            font-family: Helvetica;
+            letter-spacing: 2px;
+            /*background-color: violet;*/
+            background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+        }
+
+        .ls-form {
+            flex: 1;
+            background-color: purple;
+            margin: 4em 2em 4em 7em;
+        }
+
+        .login-signup-bars {
+            width: 100%;
+            display: flex;
+            margin: 0 auto;
+        }
+
+        .login-bar,
+        .signup-bar {
+            flex: 1;
+            text-align: center;
+            font-size: 2em;
+            border-bottom: 4px solid white;
+            padding: 0.5em;
+            letter-spacing: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .login-bar {
+            border-right: 5px solid white;
+            background-color: #340034;
+        }
+
+        .login-bar:active,
+        .signup-bar:active {
+            box-shadow: inset 2px 2px 2px 2px white;
+        }
+
+        .signup-bar {
+            border-left: 5px solid white;
+        }
+
+        .login-elements {
+            width: 100%;
+            /*display: none;*/
+        }
+
+        .login-username {
+            width: 100%;
+            margin: 4em 0 1em 0;
+        }
+
+        .login-username input {
+            width: 80%;
+            background-color: #590059;
+            border: 1px solid #590059;
+            box-shadow: inset 2px 2px 2px 0px black;
+            font-size: 1em;
+            margin: 0 0.3em 0 2em;
+            padding: 1em;
+            color: white;
+            border-radius: 50px;
+        }
+
+        .login-username input::-webkit-input-placeholder {
+            color: white;
+            letter-spacing: 2px;
+            font-family: helvetica;
+        }
+
+        .login-username input:focus {
+            outline: none;
+        }
+
+        #login-username-tick {
+            display: none;
+        }
+
+        #login-username-error {
+            display: none;
+        }
+
+        .login-username div {
+            flex: 0.7;
+            font-size: 0.7em;
+            margin: 0.5em 0 0 4em;
+            visibility: hidden;
+            letter-spacing: 2px;
+        }
+
+        .login-password {
+            width: 100%;
+        }
+
+        .login-password input {
+            flex: 1;
+            width: 80%;
+            background-color: #590059;
+            box-shadow: inset 2px 2px 2px 0px black;
+            border: 1px solid #590059;
+            font-size: 1em;
+            padding: 1em;
+            color: white;
+            margin: 0 0.3em 0 2em;
+            border-radius: 50px;
+        }
+
+        .login-password input::-webkit-input-placeholder {
+            color: white;
+            letter-spacing: 2px;
+            font-family: helvetica;
+        }
+
+        .login-password input:focus {
+            outline: none;
+        }
+
+        #login-password-tick {
+            display: none;
+        }
+
+        #login-password-error {
+            display: none;
+        }
+
+        .login-password div {
+            flex: 0.7;
+            font-size: 0.7em;
+            margin: 0.5em 0 0 4em;
+            visibility: hidden;
+            letter-spacing: 2px;
+        }
+
+        .additional-info {
+            width: 100%;
+            margin-top: 1em;
+        }
+
+        .additional-info input {
+            margin-left: 7em;
+            font-size: 1em;
+        }
+
+        .additional-info a {
+            list-style: none;
+            text-decoration: none;
+            color: white;
+        }
+
+        label {
+            font-size: 1em;
+            letter-spacing: 2px;
+        }
+
+        label span {
+            font-size: 1.2em;
+            letter-spacing: 2px;
+        }
+
+        .login-elements button {
+            width: 40%;
+            height: 40%;
+            margin: 2em 5.5em;
+            font-size: 2.2em;
+            padding: 0.5em;
+            background-color: #340034;
+            border-radius: 50px;
+            border: 1px solid #340034;
+            box-shadow: 2px 2px 5px 2px black;
+            color: white;
+            font-family: helvetica;
+            letter-spacing: 2px;
+            transition: background-color 0.5s;
+        }
+
+        .login-elements button:focus {
+            outline: none;
+        }
+
+        .login-elements button:active {
+            box-shadow: none;
+        }
+
+        .login-elements button:hover {
+            background-color: #993299;
+        }
+        /*signup elements start here----------------------------*/
+        /*-------------------------------------------------------*/
+        /*------------------------------------------------------*/
+
+        .signup-elements {
+            display: none;
+            width: 100%;
+        }
+
+        .signup-username {
+            width: 100%;
+            margin: 3em 0 1em 0;
+        }
+
+        .signup-username input {
+            width: 80%;
+            margin-left: 2em;
+            padding: 1em;
+            font-size: 1em;
+            border-radius: 50px;
+            background-color: #590059;
+            border: 1px solid #590059;
+            box-shadow: inset 2px 2px 2px 0px black;
+            color: white;
+        }
+
+        .signup-username input:focus {
+            outline: none;
+        }
+
+        .signup-username input::-webkit-input-placeholder {
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .signup-username div {
+            width: 100%;
+            margin: 0.5em 0 0 4em;
+            visibility: hidden;
+            font-size: 0.7em;
+            letter-spacing: 2px;
+        }
+
+        .signup-email-phone {
+            width: 100%;
+            margin: 0 auto;
+            /*border: 1px solid #000;*/
+        }
+
+        .signup-email-phone input {
+            width: 80%;
+            margin-left: 2em;
+            padding: 1em;
+            font-size: 1em;
+            border-radius: 50px;
+            background-color: #590059;
+            border: 1px solid #590059;
+            box-shadow: inset 2px 2px 2px 0px black;
+            color: white;
+        }
+
+        .signup-email-phone input:focus {
+            outline: none;
+        }
+
+        .signup-email-phone input::-webkit-input-placeholder {
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .signup-email-phone div {
+            width: 100%;
+            margin: 0.5em 0 0 4em;
+            visibility: hidden;
+            font-size: 0.7em;
+            letter-spacing: 2px;
+        }
+
+        .signup-password {
+            width: 100%;
+            margin: 1em auto 0 auto;
+            /*border: 1px solid #000;*/
+        }
+
+        .signup-password input {
+            width: 80%;
+            margin-left: 2em;
+            padding: 1em;
+            font-size: 1em;
+            border-radius: 50px;
+            background-color: #590059;
+            border: 1px solid #590059;
+            box-shadow: inset 2px 2px 2px 0px black;
+            color: white;
+        }
+
+        .signup-password input:focus {
+            outline: none;
+        }
+
+        .signup-password input::-webkit-input-placeholder {
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .signup-password div {
+            width: 100%;
+            margin: 0.5em 0 1em 4em;
+            visibility: hidden;
+            font-size: 0.7em;
+            letter-spacing: 2px;
+        }
+
+        .privacy {
+            margin-left: 6em;
+            width: 70%;
+            margin-top: 0;
+        }
+
+        .privacy input {
+            font-size: 1em;
+        }
+
+        .privacy input:checked {
+            background: red;
+        }
+
+        .privacy label {
+            font-size: 1em;
+        }
+
+        .signup-elements button {
+            width: 40%;
+            padding: 0.5em;
+            font-size: 2.2em;
+            border-radius: 50px;
+            /*border: 1px solid #000;*/
+            margin-top: 1.25em;
+            margin-left: 28%;
+            background-color: #340034;
+            box-shadow: 2px 2px 5px 2px black;
+            border: 1px solid #340034;
+            color: white;
+            font-family: helvetica;
+            letter-spacing: 2px;
+            transition: background-color 0.5s;
+        }
+
+        .signup-elements button:active {
+            box-shadow: none;
+        }
+
+        .signup-elements button:hover {
+            background-color: #993299;
+        }
+
+        .signup-elements button:focus {
+            outline: none;
+        }
+        /*all the svg elements for signup here*/
+        /*-------------------------------------*/
+        /*--------------------------------------*/
+
+        #signup-username-tick,
+        #signup-username-error,
+        #signup-email-phone-tick,
+        #signup-email-phone-error,
+        #signup-password-tick,
+        #signup-password-error {
+            display: none;
+        }
+        /*------------------------------------------*/
+        /*---------------contact form-------------*/
+        /*-------------------starts here-----------*/
+        /*------------------------------------------*/
+
+        .c-form {
+            flex: 0.9;
+            margin: 4em 3em;
+            background-color: purple;
+        }
+
+        .email,
+        .subject,
+        textarea {
+            width: 90%;
+            height: 10%;
+            margin: 1.5em auto;
+        }
+
+        h3 {
+            font-weight: 400;
+            text-align: center;
+            font-size: 2em;
+            margin: 0 0;
+            text-transform: uppercase;
+            padding: 0.5em;
+            border-bottom: 5px solid white;
+        }
+
+        .name {
+            margin: 1em auto 1.5em auto;
+            width: 90%;
+            height: 10%;
+        }
+
+        .name div {
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .name input {
+            width: 100%;
+            margin: 0.5em auto;
+            height: 60%;
+            font-size: 1em;
+            /*background-color: #590059;
+            border: 2px solid white;*/
+        }
+
+        .email div {
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .email input {
+            width: 100%;
+            margin: 0.5em auto;
+            height: 60%;
+            font-size: 1em;
+        }
+
+        .subject div {
+            width: 100%;
+            font-size: 1em;
+        }
+
+        .subject input {
+            font-size: 1em;
+            width: 100%;
+            margin: 0.5em auto;
+            height: 60%;
+        }
+
+        textarea {
+            margin-top: 2em;
+            margin-left: 2.5em;
+            height: 15%;
+        }
+
+        .c-form button {
+            width: 30%;
+            height: 10%;
+            margin: 0.25em 6em;
+            background-color: #340034;
+            box-shadow: 2px 2px 5px 2px black;
+            border: 1px solid #340034;
+            color: white;
+            font-family: helvetica;
+            letter-spacing: 2px;
+            transition: background-color 0.5s;
+            font-size: 2em;
+        }
+
+        .c-form button:focus {
+            outline: none;
+        }
+
+        .c-form button:hover {
+            background-color: #993299;
+        }
+
+        .c-form button:active {
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ls-form">
+        <div class="login-signup-bars">
+            <div class="login-bar">LOGIN</div>
+            <div class="signup-bar">SIGNUP</div>
+        </div>
+        <!-- id="loginUsernameInput" -->
+        <div class="login-elements">
+            <div class="login-username">
+                <input type="text" placeholder="Username or Email">
+                <svg fill="#FFFFFF" id="login-username-tick" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                </svg>
+                <svg fill="#FFFFFF" id="login-username-error" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+
+                <div>place google icon here</div>
+            </div>
+            <div class="login-password">
+                <input type="text" placeholder="Password">
+                <svg fill="#FFFFFF" id="login-password-tick" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                </svg>
+                <svg fill="#FFFFFF" id="login-password-error" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                <div>Google Icon here for descp</div>
+            </div>
+            <div class="additional-info">
+                <input type="checkbox" id="tick">
+                <label for="tick">Stay Logged In&nbsp <span>|</span></label>
+                <a href="#">&nbspForgotten Password?</a>
+            </div>
+            <button type="button" id="login-now">Login</button>
+        </div>
+
+        <div class="signup-elements">
+            <div class="signup-username">
+                <input type="text" placeholder="Username">
+                <svg fill="#FFFFFF" id="signup-username-tick" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                </svg>
+                <svg fill="#FFFFFF" id="signup-username-error" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                <div>Show error here</div>
+            </div>
+            <div class="signup-email-phone">
+                <input type="text" placeholder="Phone or Email">
+                <svg fill="#FFFFFF" id="signup-email-phone-tick" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                </svg>
+                <svg fill="#FFFFFF" id="signup-email-phone-error" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                <div>Any error messages here</div>
+            </div>
+            <div class="signup-password">
+                <input type="text" placeholder="Password">
+                <svg fill="#FFFFFF" id="signup-password-tick" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+                </svg>
+                <svg fill="#FFFFFF" id="signup-password-error" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0V0z" fill="none"/>
+                <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                <div>All relating Errors</div>
+            </div>
+            <div class="privacy">
+                <input type="checkbox" id="privacy-check">
+                <label for="privacy-check">Do you agree with our terms and conditions</label>
+            </div>
+
+            <button type="button" id="signup-now">Sign up</button>
+        </div>
+    </div>
+
+    <div class="c-form">
+        <h3>Contact Form</h3>
+
+        <div class="name">
+            <div>Name</div>
+            <input type="text" id="name-input" required>
+        </div>
+        <div class="email">
+            <div>Email</div>
+            <input type="text" id="email-input" required>
+        </div>
+        <div class="subject">
+            <div>Subject</div>
+            <input type="text" required>
+        </div>
+        <textarea placeholder="Type your query here" required></textarea>
+        <button type="button" id="Submit">Submit</button>
+    </div>
+
+
+    <script type="text/javascript">
+        const loginElements = document.querySelector(".login-elements");
+        const signupElements = document.querySelector(".signup-elements");
+        const signupBar = document.querySelector(".signup-bar");
+        const loginBar = document.querySelector(".login-bar");
+
+        loginBar.addEventListener("click", function() {
+            loginBar.style.backgroundColor = "#340034";
+            signupBar.style.backgroundColor = "purple";
+            loginElements.style.display = "block";
+            signupElements.style.display = "none";
+        });
+        signupBar.addEventListener("click", function() {
+            signupBar.style.backgroundColor = "#340034";
+            loginBar.style.backgroundColor = "purple";
+            loginElements.style.display = "none";
+            signupElements.style.display = "block";
+        });
+
+        //---------------------------------------
+        // ------This is for login username-----
+        // ---------------------------------------
+        var loginUsernameInput = document.querySelector(".login-username input");
+        var loginUsernameTick = document.getElementById("login-username-tick");
+        var loginUsernameError = document.getElementById("login-username-error");
+        var loginUsernameAlert = document.querySelector(".login-username div");
+        loginUsernameInput.addEventListener("input", function() {
+            if (this.value.length <= 10 && this.value.length > 0) {
+                loginUsernameAlert.style.visibility = "visible";
+                loginUsernameAlert.innerText = "username or email has to be atleast 10 characters long";
+                loginUsernameTick.style.display = "none";
+                loginUsernameError.style.display = "inline";
+            } else if (this.value.length === 0) {
+                loginUsernameAlert.style.visibility = "visible";
+                loginUsernameAlert.innerText = "username is required";
+                loginUsernameTick.style.display = "none";
+                loginUsernameError.style.display = "inline";
+            } else {
+                loginUsernameAlert.style.visibility = "visible";
+                loginUsernameAlert.innerText = "Great Work, Username Accepted";
+                loginUsernameTick.style.display = "inline";
+                loginUsernameError.style.display = "none";
+            }
+        });
+
+        //---------------------------------------
+        // ------This is for login password-----
+        // ---------------------------------------
+        var loginPasswordInput = document.querySelector(".login-password input");
+        var loginPasswordTick = document.getElementById("login-password-tick");
+        var loginPasswordError = document.getElementById("login-password-error");
+        var loginPasswordAlert = document.querySelector(".login-password div");
+        loginPasswordInput.addEventListener("input", function() {
+            if (this.value.length <= 10 && this.value.length > 0) {
+                loginPasswordAlert.style.visibility = "visible";
+                loginPasswordAlert.innerText = "password has to be atleast 10 characters long";
+                loginPasswordTick.style.display = "none";
+                loginPasswordError.style.display = "inline";
+            } else if (this.value.length === 0) {
+                loginPasswordAlert.style.visibility = "visible";
+                loginPasswordAlert.innerText = "password is required";
+                loginPasswordTick.style.display = "none";
+                loginPasswordError.style.display = "inline";
+            } else {
+                loginPasswordAlert.style.visibility = "visible";
+                loginPasswordAlert.innerText = "All Set";
+                loginPasswordTick.style.display = "inline";
+                loginPasswordError.style.display = "none";
+            }
+        });
+
+        //---------------------------------------
+        // ------This is for signup-username-----
+        // ---------------------------------------
+
+        var signupUsernameInput = document.querySelector(".signup-username input");
+        var signupUsernameTick = document.getElementById("signup-username-tick");
+        var signupUsernameError = document.getElementById("signup-username-error");
+        var signupUsernameAlert = document.querySelector(".signup-username div");
+        signupUsernameInput.addEventListener("input", function() {
+            if (this.value.length <= 10 && this.value.length > 0) {
+                signupUsernameAlert.style.visibility = "visible";
+                signupUsernameAlert.innerText = "username or email has to be atleast 10 characters long";
+                signupUsernameTick.style.display = "none";
+                signupUsernameError.style.display = "inline";
+            } else if (this.value.length === 0) {
+                signupUsernameAlert.style.visibility = "visible";
+                signupUsernameAlert.innerText = "username or email is required";
+                signupUsernameTick.style.display = "none";
+                signupUsernameError.style.display = "inline";
+            } else {
+                signupUsernameAlert.style.visibility = "visible";
+                signupUsernameAlert.innerText = "Great Work, Username Accepted";
+                signupUsernameTick.style.display = "inline";
+                signupUsernameError.style.display = "none";
+            }
+        });
+
+        //---------------------------------------
+        // ----This is for signup-email-phone---
+        // ---------------------------------------
+        var signupEmailPhoneInput = document.querySelector(".signup-email-phone input");
+        var signupEmailPhoneTick = document.getElementById("signup-email-phone-tick");
+        var signupEmailPhoneError = document.getElementById("signup-email-phone-error");
+        var signupEmailPhoneAlert = document.querySelector(".signup-email-phone div");
+        signupEmailPhoneInput.addEventListener("input", function() {
+            if (this.value.length <= 10 && this.value.length > 0) {
+                signupEmailPhoneAlert.style.visibility = "visible";
+                signupEmailPhoneAlert.innerText = "email or phone has to be atleast 10 characters long";
+                signupEmailPhoneTick.style.display = "none";
+                signupEmailPhoneError.style.display = "inline";
+            } else if (this.value.length === 0) {
+                signupEmailPhoneAlert.style.visibility = "visible";
+                signupEmailPhoneAlert.innerText = "email or phone is required";
+                signupEmailPhoneTick.style.display = "none";
+                signupEmailPhoneError.style.display = "inline";
+            } else {
+                signupEmailPhoneAlert.style.visibility = "visible";
+                signupEmailPhoneAlert.innerText = "All Done";
+                signupEmailPhoneTick.style.display = "inline";
+                signupEmailPhoneError.style.display = "none";
+            }
+        });
+
+        //---------------------------------------
+        // ------This is for signup-pssword-----
+        // ---------------------------------------
+        var signupPasswordInput = document.querySelector(".signup-password input");
+        var signupPasswordTick = document.getElementById("signup-password-tick");
+        var signupPasswordError = document.getElementById("signup-password-error");
+        var signupPasswordAlert = document.querySelector(".signup-password div");
+        signupPasswordInput.addEventListener("input", function() {
+            if (this.value.length <= 10 && this.value.length > 0) {
+                signupPasswordAlert.style.visibility = "visible";
+                signupPasswordAlert.innerText = "password has to be atleast 10 characters long";
+                signupPasswordTick.style.display = "none";
+                signupPasswordError.style.display = "inline";
+            } else if (this.value.length === 0) {
+                signupPasswordAlert.style.visibility = "visible";
+                signupPasswordAlert.innerText = "password is required";
+                signupPasswordTick.style.display = "none";
+                signupPasswordError.style.display = "inline";
+            } else {
+                signupPasswordAlert.style.visibility = "visible";
+                signupPasswordAlert.innerText = "Looks Good";
+                signupPasswordTick.style.display = "inline";
+                signupPasswordError.style.display = "none";
+            }
+        });
+
+
+        var loginNow = document.getElementById("login-now");
+        loginNow.addEventListener("click", function() {
+            if (loginUsernameInput.value.length === 0 && loginPasswordInput.value.length === 0) {
+                loginUsernameAlert.style.visibility = "visible";
+                loginPasswordAlert.style.visibility = "visible";
+                loginUsernameAlert.innerText = "username is required";
+                loginUsernameError.style.display = "inline";
+                loginPasswordAlert.innerText = "password is required";
+                loginPasswordError.style.display = "inline";
+            } else if (loginUsernameInput.value.length === 0) {
+                loginUsernameAlert.style.visibility = "visible";
+                loginUsernameError.style.display = "inline";
+                loginUsernameAlert.innerText = "username is required";
+            } else if (loginPasswordInput.value.length === 0) {
+                loginPasswordAlert.style.visibility = "visible";
+                loginPasswordError.style.display = "inline";
+                loginPasswordAlert.innerText = "password is required";
+            } else if (loginUsernameInput.value.length >= 10 && loginPasswordInput.value.length >= 10) {
+                loginNow.innerText = "Logging In..";
+            }
+        });
+
+
+        var signupNow = document.getElementById("signup-now");
+        signupNow.addEventListener("click", function() {
+            if (signupUsernameInput.value.length === 0 && signupPasswordInput.value.length === 0 && signupEmailPhoneInput.value.length === 0) {
+                signupUsernameAlert.style.visibility = "visible";
+                signupPasswordAlert.style.visibility = "visible";
+                signupEmailPhoneAlert.style.visibility = "visible";
+                signupUsernameAlert.innerText = "username is required";
+                signupUsernameError.style.display = "inline";
+                signupPasswordAlert.innerText = "password is required";
+                signupPasswordError.style.display = "inline";
+                signupEmailPhoneAlert.innerText = "email or phone is required";
+                signupEmailPhoneError.style.display = "inline"
+            } else if (signupUsernameInput.value.length === 0) {
+                signupUsernameAlert.style.visibility = "visible";
+                signupUsernameError.style.display = "inline";
+                signupUsernameAlert.innerText = "username is required";
+            } else if (signupPasswordInput.value.length === 0) {
+                signupPasswordAlert.style.visibility = "visible";
+                signupPasswordError.style.display = "inline";
+                signupPasswordAlert.innerText = "password is required";
+            } else if (signupEmailPhoneInput.value.length === 0) {
+                signupEmailPhoneAlert.style.visibility = "visible";
+                signupEmailPhoneError.style.display = "inline";
+                signupEmailPhoneAlert.innerText = "password is required";
+            } else if (signupUsernameInput.value.length >= 10 && signupPasswordInput.value.length >= 10 && signupEmailPhoneInput.value.length >= 10) {
+                signupNow.innerText = "Logging In..";
+            }
+        });
+    </script>
+</body>
+
+</html>
